@@ -37,17 +37,28 @@ $f3->route('GET /page2', function() {
     //$views = new View;
     //echo $views->render ('views/home.html');
 
-    echo '<h1>i noe de wey</h1>';
-
 }
 );
 
-$f3->route('GET /page1/subpage-a', function() {
+$f3->route('GET /jewelry/rings/toe-rings', function() {
 
     //$views = new View;
     //echo $views->render ('views/home.html');
 
-    echo '<h1>*clucking*</h1>';
+    $template = new Template();
+    echo $template -> render('views/toe-rings.html');
+
+}
+);
+
+$f3->route('GET /hello/@name', function($f3, $params) {
+
+    //$name = $params['name'];
+    //echo"<h1>Hello, $name</h1>";
+
+    $f3-> set('name', $params['name']);
+    $template = new Template();
+    echo $template->render('views/hello.html');
 
 }
 );
