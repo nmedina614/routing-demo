@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //Require the autoload file
 require_once('vendor/autoload.php');
 
@@ -62,6 +64,45 @@ $f3->route('GET /hello/@name', function($f3, $params) {
 
 }
 );
+
+$f3->route('GET /hello/@name', function($f3, $params) {
+
+    //$name = $params['name'];
+    //echo"<h1>Hello, $name</h1>";
+
+    $f3-> set('name', $params['name']);
+    $template = new Template();
+    echo $template->render('views/hello.html');
+
+}
+);
+
+$f3->route('GET /hello/@first/@last', function($f3, $params) {
+
+    //$name = $params['name'];
+    //echo"<h1>Hello, $name</h1>";
+
+    $f3-> set('first', $params['first']);
+    $f3-> set('last', $params['last']);
+    $f3-> set('message', "Hi!");
+
+    $_SESSION['first'] = $f3->get('first');
+    $_SESSION['last'] = $f3->get('last');
+
+    $template = new Template();
+    echo $template->render('views/hi.html');
+
+}
+);
+
+$f3->route('GET /hi-again', function($f3, $params) {
+
+    echo 'Hi Again, '.$_SESSION['first'];
+
+}
+);
+
+
 
 
 $f3->run();
